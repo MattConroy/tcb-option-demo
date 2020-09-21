@@ -2,12 +2,12 @@
 {
     internal sealed class Repository : IRepository
     {
-        public string GetString(int id)
+        public Result<string, ErrorMessage> GetString(int id)
         {
-            if (id % 2 != 0)
-                throw new MissingStringException(id);
+            if (id % 2 == 0)
+                return Result.SuccessOf(new string('*', id));
 
-            return new string('*', id);
+            return Result.FailureOf($"Value must be even. '{id}'");
         }
     }
 }

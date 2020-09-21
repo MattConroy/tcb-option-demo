@@ -2,9 +2,15 @@
 {
     internal sealed class Validator : IValidator
     {
-        public bool Validate(string value)
+        public Result<ErrorMessage> Validate(string value)
         {
-            return value.Length % 3 == 0;
+            if (value.Length % 3 != 0) 
+                return Result.Failure("Value must be multiple of 3.");
+
+            if (value.Length % 5 != 0)
+                return Result.Failure("Value must be multiple of 5.");
+
+            return Result.Success();
         }
     }
 }

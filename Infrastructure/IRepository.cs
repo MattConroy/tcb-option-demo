@@ -2,6 +2,6 @@
 {
     internal interface IRepository
     {
-        string GetString(int id);
+        Result<string, ErrorMessage> GetString(int id);
     }
 }

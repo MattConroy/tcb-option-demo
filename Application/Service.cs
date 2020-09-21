@@ -17,13 +17,10 @@ namespace TCB.Option.Demo.Application
 
         public void Execute(int id)
         {
-            var retrievedValue = _repository.GetString(id);
-
-            _logger.WriteLine($"({id}) Retrieved '{retrievedValue}'.");
-
-            var isValid = _validator.Validate(retrievedValue);
-
-            _logger.WriteLine($"'{retrievedValue}' is {(isValid ? "" : "not ")}valid.");
+            _repository.GetString(id)
+                .FlatMapValue(value => _validator.Validate(value))
+                .Match(onSuccess: value => _logger.WriteLine($"Successful execution: '{value}'."),
+                    onFailure: error => _logger.WriteLine($"Failed execution: '{error}'."));
         }
     }
 }

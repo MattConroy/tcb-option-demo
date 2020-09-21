@@ -2,6 +2,6 @@
 {
     internal interface IValidator
     {
-        bool Validate(string value);
+        Result<ErrorMessage> Validate(string value);
     }
 }
